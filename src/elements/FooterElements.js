@@ -22,7 +22,6 @@ export const FooterSocialWrapper = styled.div`
   p {
     text-align: center;
     flex: 0 0 100%;
-    color: ${props => props.theme.colors.main2};
   }
 `
 

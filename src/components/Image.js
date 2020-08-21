@@ -15,7 +15,7 @@ export const Image = ({ fixed }) => {
     <ImageWrapper>
       <img
         src={data.feature.publicURL}
-        alt="featured image"
+        alt="featured"
         style={{
           position: "absolute",
           left: 0,
