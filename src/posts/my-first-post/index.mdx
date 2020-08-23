@@ -5,3 +5,313 @@ date: 2020-03-27
 featureImage: ajax.jpg
 excerpt: In this blog, we’ll be learning about what is AJAX and what are the various ways of making an AJAX request by creating a simple Ron Swanson Random Quote Generator.
 ---
+
+In this blog, we’ll be learning about what is AJAX and what are the various ways of making an AJAX request by creating a simple **Ron Swanson Random Quote Generator**.
+
+You can access the finished project on this Codepen link below:
+
+[Codepen Finished Code](https://codepen.io/vivek-mittal/embed/dLKpqj?default-tab=&theme-id=)
+
+---
+
+All the web developers out there must have come across the term _AJAX_ at-least once in their lifetime.
+
+So what is AJAX?
+
+- It stands for *A*synchronous *J*avaScript *A*nd *X*ML.
+- It is NOT a Library, a Framework nor a Technology.
+- It is an approach with the help of which the user can send a request to the web server and get more content.
+
+> A more formal definition will be:
+
+- It is a functionality which allows web pages to be updated _asynchronously_ by exchanging data with a web server behind the scenes.
+
+- AJAX makes it possible to update the parts of a web page without reloading the whole page which saves a lot of time and makes it convenient for the user.
+
+## How AJAX Works?
+
+For understanding how AJAX works, lets take an example of an application like _Instagram_ where:
+
+- A user scrolled down to the bottom.
+- Then, he asks for more content and then quickly, a request is made to the web server and the data is fetched from the server.
+- Now, the requested data is pulled from the server and it gets appended to the bottom of the page.
+- So the fetching of the data in the background is done with the help of AJAX.
+
+You can fork the starter code from this Codepen link given below:
+
+[Codepen Starter Code](https://codepen.io/vivek-mittal/embed/abOQRMe?default-tab=&theme-id=)
+
+> Now we will start with the very first way of making AJAX request with JavaScript
+
+---
+
+## XMLHttp Request
+
+So it is the first and very basic way of making requests to a web server. All modern browsers have a built-in XMLHttpRequest object to request data from a server.
+
+XHR code for our project looks like this:
+
+```js
+// url of our api which we will use
+var url = "https://ron-swanson-quotes.herokuapp.com/v2/quotes"
+// select button with this id and store in variable
+var xhrbtn = document.querySelector("#xhr")
+// select the paragraph of which we want to change the content
+var display = document.querySelector("#quote")
+xhrbtn.addEventListener("click", function () {
+  var XHR = new XMLHttpRequest()
+  XHR.onreadystatechange = function () {
+    if (XHR.readyState == 4 && XHR.status == 200) {
+      var quote = JSON.parse(XHR.responseText)
+      display.innerText = quote
+    }
+  }
+  XHR.open("GET", url)
+  XHR.send()
+})
+```
+
+Code explanation:
+
+```js
+var XHR = new XMLHttpRequest()
+```
+
+The above line creates an _XMLHttpRequest_ object.
+
+```js
+XHR.onreadystatechange = function () {
+  if (XHR.readyState == 4 && XHR.status == 200) {
+    var quote = JSON.parse(XHR.responseText)
+    display.innerText = quote
+  }
+}
+```
+
+The above _onreadystatechange_ property specifies a function to be executed every time the status of the XMLHttpRequest object changes.
+
+When _readyState_ property is 4 and the _status_ property is 200, the response is ready. `JSON.parse()` parses the JSON string and then it will be saved in quote variable.
+
+Finally, we will display that quote in the text box.
+
+```js
+XHR.open("GET", url)
+```
+
+This line above will open the get request for the URL.
+
+```js
+XHR.send()
+```
+
+This line above sends the request to the server. In our case, the request is asynchronous(default), this method returns as soon as the request is sent and result is delivered using events.
+
+---
+
+## Fetch API
+
+The Fetch API provides an interface for fetching resources (including across the network). It will seem familiar to anyone who has used `XMLHttpRequest`, but the new API provides a more powerful and flexible feature set.
+
+> It provides a cleaner syntax and makes streaming possible.
+
+Fetch code for our project looks like this:
+
+```js
+var fetchbtn = document.querySelector("#fetch")
+fetchbtn.addEventListener("click", function () {
+  fetch(url)
+    .then(function (req) {
+      req.json().then(function (data) {
+        display.innerText = data[0]
+      })
+    })
+    .catch(function () {
+      alert("ERROR!")
+    })
+})
+```
+
+Code Explanation:
+
+```js
+fetch(url)
+```
+
+As the name says, it fetches the data from the parsed URL and then various functionalities can be performed on the fetched data.
+
+```js
+.then(function(req){
+  req.json().then(function(data){
+    display.innerText = data[0];
+  })
+})
+```
+
+This function will run after the `fetch(url)` is completed and it will take a function with a req parameter as an input and here we are going to nest a `.then()` inside another `.then()` function.
+
+Here, the `req.json()` will fetch the data from the URL and then `.then(function(data){})` will retrieve the data attribute from that fetched object and finally we will display that data in our text field.
+
+```js
+.catch(function(){
+  alert("ERROR!");
+})
+```
+
+This function will catch any kind of errors which may occur in case our `.then()` function won’t run properly or maybe we encounter any error while fetching the data from the URL.
+
+---
+
+## jQuery
+
+It is one of the popular third party library for sending requests with JavaScript.
+
+> “The Write Less, Do More Javascript Library”
+
+The major drawback with the _Fetch API_ is that it is not fully supported on all the browsers and that’s why we are going with _jQuery_.
+
+Our code for jQuery looks like this:
+
+```js
+$("#jquery").click(function () {
+  $.getJSON(url)
+    .done(function (data) {
+      $("#quote").text(data[0])
+    })
+    .fail(function () {
+      alert("ERROR!")
+    })
+})
+```
+
+Code Explanation:
+
+```js
+$("#jquery").click(function () {})
+```
+
+The above line is a short and clean syntax for selecting an element with id jquery and then adding an on click event listener to that element.
+
+```js
+$.getJSON(url)
+  .done(function(data){
+    $('#quote').text(data[0]);
+  })
+  .fail(function(){
+    alert("ERROR!");
+  })
+});
+```
+
+We are parsing our URL and getting the data back as an object. Here, the `.done()` function is similar to `.then()` function and `.fail()` function is similar to `.catch()` function of _Fetch API_.
+
+> The major advantage of jQuery over Fetch and XHR is that it is supported by all the browsers and is flexible. It saves so much time, effort and is easy to integrate.
+
+---
+
+## Axios
+
+It is also one of the popular third party library for sending requests with JavaScript.
+
+> There is this site called [http://youmightnotneedjquery.com/](http://youmightnotneedjquery.com/) which shows us that jQuery may not be saving us that much time and we need some other way of sending the request and doing other stuff.
+
+The main advantages of AXIOS over other type of requests we saw above are:
+
+- Built on top of XHR API
+- Make http requests from Node.js
+- Supports the Promise API
+- Automatically transforms the JSON data
+- Intercepts, transforms and cancels requests
+
+Our code for AXIOS looks like this:
+
+```js
+var axiosbtn = document.querySelector("#axios")
+axiosbtn.addEventListener("click", function () {
+  axios
+    .get(url)
+    .then(function (res) {
+      display.innerText = res.data[0]
+    })
+    .catch(function () {
+      alert("ERROR!")
+    })
+})
+```
+
+Code Explanation:
+
+```js
+axios.get(url)
+```
+
+This line above makes a get request to the URL.
+
+```js
+.then(function(res){
+  display.innerText = res.data[0];
+})
+.catch(function(){
+  alert("ERROR!");
+})
+```
+
+The `.then()` will run after the `axios.get(url)` succeeds in getting the data from the parsed URL without any errors and will display the required data in the text field.
+
+If any kind of errors are encountered, then our `.catch()` will run and will give an alert.
+
+---
+
+So our all the ways of making the AJAX requests are done and our final JavaScript will look like this:
+
+```js
+var url = "https://ron-swanson-quotes.herokuapp.com/v2/quotes"
+var xhrbtn = document.querySelector("#xhr")
+var fetchbtn = document.querySelector("#fetch")
+var axiosbtn = document.querySelector("#axios")
+var display = document.querySelector("#quote")
+xhrbtn.addEventListener("click", function () {
+  var XHR = new XMLHttpRequest()
+  XHR.onreadystatechange = function () {
+    if (XHR.readyState == 4 && XHR.status == 200) {
+      var quote = JSON.parse(XHR.responseText)
+      display.innerText = quote
+    }
+  }
+  XHR.open("GET", url)
+  XHR.send()
+})
+fetchbtn.addEventListener("click", function () {
+  fetch(url)
+    .then(function (req) {
+      req.json().then(function (data) {
+        display.innerText = data[0]
+      })
+    })
+    .catch(function () {
+      alert("ERROR!")
+    })
+})
+$("#jquery").click(function () {
+  $.getJSON(url)
+    .done(function (data) {
+      $("#quote").text(data[0])
+    })
+    .fail(function () {
+      alert("ERROR!")
+    })
+})
+axiosbtn.addEventListener("click", function () {
+  axios
+    .get(url)
+    .then(function (res) {
+      display.innerText = res.data[0]
+    })
+    .catch(function () {
+      alert("ERROR!")
+    })
+})
+```
+
+---
+
+> Happy Coding!

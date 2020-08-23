@@ -1,21 +1,23 @@
 import React from "react"
+import Img from "gatsby-image"
 import { ImageWrapper } from "../elements"
 import { useStaticQuery, graphql } from "gatsby"
 
 export const Image = ({ fixed }) => {
   const data = useStaticQuery(graphql`
     query {
-      feature: file(relativePath: { eq: "feature.jpg" }) {
-        publicURL
+      imageSharp(fixed: { originalName: { eq: "feature.jpg" } }) {
+        fixed {
+          ...GatsbyImageSharpFixed
+        }
       }
     }
   `)
 
   return (
     <ImageWrapper>
-      <img
-        src={data.feature.publicURL}
-        alt="featured"
+      <Img
+        fixed={fixed ? fixed : data.imageSharp.fixed}
         style={{
           position: "absolute",
           left: 0,

@@ -4,8 +4,9 @@ export default {
     code: "Poppins, monospace",
   },
   colors: {
-    main1: "hsl(207,70%,59%)",
+    main1: "hsl(207,100%,75%)",
     main2: "hsl(207,70%,94%)",
+    main3: "hsl(25,50%,50%)",
     dark1: "hsl(227,2%,12%)",
     dark2: "hsl(227,2%,26%)",
     dark3: "hsl(227,2%,64%)",
