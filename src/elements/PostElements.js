@@ -110,15 +110,6 @@ export const PostWrapper = styled.main`
     margin: 0.25rem 0;
   }
 
-  code {
-    font-family: ${props => props.theme.fonts.code};
-    font-size: 1rem;
-    line-height: 2rem;
-    color: ${props => props.theme.colors.light1};
-    background-color: ${props => props.theme.colors.dark3};
-    padding: 0 0.3rem;
-  }
-
   hr {
     border: 0;
     height: 2px;

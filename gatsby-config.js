@@ -1,4 +1,8 @@
 module.exports = {
+  siteMetadata: {
+    title: "Vivek Mittal's Blog",
+    description: "",
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,

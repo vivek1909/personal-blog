@@ -1,27 +1,19 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Container, Content, Card, Image, Pagination } from "../components"
-import { H1, P } from "../elements"
 
 const allPosts = ({ pageContext, data }) => {
   const { currentPage, totalPages } = pageContext
   const isFirst = currentPage
   const isLast = currentPage === totalPages
-  const prevPage = currentPage - 1 === 1 ? `/` : `/${currentPage - 1}`
-  const nextPage = `${currentPage + 1}`
-
+  const prevPage = currentPage - 1 === 1 ? "/" : `/${currentPage - 1}`
+  const nextPage = `/${currentPage + 1}`
   const posts = data.allMdx.edges
 
   return (
     <Container>
       <Image />
       <Content>
-        <H1 color="light2" textAlign="center" margin="0 0 1rem 0">
-          loresakjf
-        </H1>
-        <P color="light2" textAlign="center">
-          Lorem opsum
-        </P>
         {posts.map(post => (
           <Card
             key={post.node.frontmatter.slug}
