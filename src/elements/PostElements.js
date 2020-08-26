@@ -26,6 +26,15 @@ export const PostWrapper = styled.main`
     margin-top: 2rem;
   }
 
+  code {
+    font-family: ${props => props.theme.fonts.code};
+    font-size: 1rem;
+    /* line-height: 1.875rem; */
+    color: ${props => props.theme.colors.dark2};
+    background: ${props => props.theme.colors.main2};
+    padding: 0 0.3rem;
+  }
+
   h1 {
     color: ${props => props.theme.colors.main3};
     font-size: 2.25rem;
