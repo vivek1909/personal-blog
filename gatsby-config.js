@@ -1,7 +1,13 @@
 module.exports = {
   siteMetadata: {
     title: "Vivek Mittal's Blog",
-    description: "",
+    description: "A blog site containing all the blogs written by Vivek Mittal",
+    url: "https://vivek-writes.netlify.com",
+    image: "/feature.jpg",
+    twitterUsername: "@vivek96_",
+    instagramUsername: "@vivek06_",
+    githubUsername: "@vivek1909",
+    author: "Vivek Mittal",
   },
   plugins: [
     {

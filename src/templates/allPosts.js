@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Container, Content, Card, Image, Pagination } from "../components"
+import { Container, Content, Card, Image, Pagination, Seo } from "../components"
 
 const allPosts = ({ pageContext, data }) => {
   const { currentPage, totalPages } = pageContext
@@ -12,6 +12,7 @@ const allPosts = ({ pageContext, data }) => {
 
   return (
     <Container>
+      <Seo />
       <Image />
       <Content>
         {posts.map(post => (
