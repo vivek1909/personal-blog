@@ -21,6 +21,7 @@ const allPosts = ({ pageContext, data }) => {
             date={post.node.frontmatter.date}
             title={post.node.frontmatter.title}
             excerpt={post.node.frontmatter.excerpt}
+            readTime={post.node.frontmatter.readTime}
             slug={post.node.frontmatter.slug}
           />
         ))}
@@ -50,6 +51,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             excerpt
             slug
+            readTime
             title
           }
         }
