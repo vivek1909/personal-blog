@@ -4,12 +4,32 @@ module.exports = {
     description: "A blog site containing all the blogs written by Vivek Mittal",
     url: "https://vivek-writes.netlify.com",
     image: "/feature.jpg",
-    twitterUsername: "@vivek96_",
-    instagramUsername: "@vivek06_",
-    githubUsername: "@vivek1909",
+    twitter: "@vivek96_",
+    instagram: "@vivek06_",
+    github: "@vivek1909",
     author: "Vivek Mittal",
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Vivek Mittal`,
+        short_name: `Vivek`,
+        start_url: `/`,
+        background_color: `hsl(227,2%,12%)`,
+        theme_color: `hsl(227,2%,12%)`,
+        display: `standalone`,
+        icon: `src/images/logo.svg`,
+        cache_busting_mode: `none`,
+        theme_color_in_head: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/pokedex/`, `/ajax-requests/`],
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
