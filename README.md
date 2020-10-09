@@ -1,2 +1,2 @@
 # personal-blog
-Personal Blog created using Gatsby, React, GraphQL and MDX
+Personal Blog created using Gatsby, React, GraphQL and MDX.
